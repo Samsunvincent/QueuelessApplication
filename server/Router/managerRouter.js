@@ -9,6 +9,6 @@ function setAccessControl(access_types){
     }
 }
 
-router.post('/changePassword',setAccessControl("2"),managerController.changePassword);
+router.post('/changePassword/:id',managerController.changePassword);
 
 module.exports = router;
