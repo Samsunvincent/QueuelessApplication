@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt'); // Ensure bcrypt is required
 const User = require('../db/model/userModel');
+const Category = require('../db/model/categoryModel')
+const Product = require('../db/model/productModel');
 
 exports.changePassword = async function (req, res) {
     try {
@@ -40,4 +42,62 @@ exports.changePassword = async function (req, res) {
         console.log("Something went wrong", error);
         return res.status(500).json({ message: "Internal Server Error" || error.message });
     }
+};
+
+exports.addCategory = async function (req, res) {
+    try {
+        const { name } = req.body;
+
+        // Check if the category already exists
+        const existingCategory = await Category.findOne({ name });
+        if (existingCategory) {
+            return res.status(400).json({ message: 'Category already exists' });
+        }
+
+        // Create a new category
+        const newCategory = new Category({ name });
+        await newCategory.save();
+        res.status(201).json({ message: 'Category added successfully', category: newCategory });
+
+    } catch (error) {
+        console.error('Error adding category:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+}
+
+
+const QRCode = require('qrcode');
+
+// Add a new product
+exports.addProduct = async (req, res) => {
+  try {
+    const { name, price, stock, category, description, imageUrl } = req.body;
+
+    // Generate a QR code for the product
+    const qrCode = await QRCode.toDataURL({
+        name,
+        price,
+        category
+    });
+    console.log("qrCode",qrCode);
+
+    const categoryDoc = await Category.findOne({name : category})
+   
+
+    const product = new Product({
+      name,
+      price,
+      stock,
+      category : categoryDoc._id,
+      description,
+      qrCode,
+      imageUrl,
+      createdBy: req.user.id // User creating the product
+    });
+
+    await product.save();
+    res.status(201).json({ message: 'Product added successfully', product });
+  } catch (error) {
+    res.status(500).json({ message: 'Error adding product', error: error.message });
+  }
 };

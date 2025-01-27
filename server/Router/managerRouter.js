@@ -10,5 +10,7 @@ function setAccessControl(access_types){
 }
 
 router.post('/changePassword/:id',managerController.changePassword);
+router.post('/addCategory',setAccessControl('1,3'),managerController.addCategory);
+router.post('/addProduct',setAccessControl('1,3'),managerController.addProduct);
 
 module.exports = router;
