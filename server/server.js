@@ -9,12 +9,16 @@ mongoConnect();
 
 const userRouter = require('../server/Router/userRouter');
 const authRouter = require('../server/Router/authRouter');
+const adminRouter = require('../server/Router/adminRouter');
+const managerRouter = require('../server/Router/managerRouter');
 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(userRouter)
 app.use(authRouter)
+app.use(adminRouter);
+app.use(managerRouter);
 
 
 app.listen(process.env.PORT , () =>{

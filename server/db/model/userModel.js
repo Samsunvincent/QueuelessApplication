@@ -25,6 +25,7 @@ const userSchema = new mongoose.Schema({
         enum: ['admin', 'manager', 'user'],
         default: 'user', // Default to user for regular users
     },
+    isFirstLogin: { type: Boolean, default: true },
     createdAt: {
         type: Date,
         default: Date.now,

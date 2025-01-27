@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
 
+
 exports.login = async function (req, res) {
   try {
     const { email, password } = req.body;
@@ -35,6 +36,15 @@ exports.login = async function (req, res) {
         // Ensure the role is assigned correctly from the 'role' field in your model
         const role = check_user.role || 'user';  // Default to 'user' if no role is set
 
+        // Check if the user is a manager and needs to change the password
+        if (check_user.role === 'manager' && check_user.isFirstLogin) {
+          // Update the isFirstLogin flag to false
+          check_user.isFirstLogin = false;
+          await check_user.save();
+
+          return res.status(400).json({ message: "Please change your password before logging in" });
+        }
+
         // Generate JWT token with user ID and role
         const token = jwt.sign({ id: check_user._id, role: role }, process.env.PRIVATE_KEY, { expiresIn: role === 'admin' ? '1h' : '10d' });
         console.log('token : ', token);
@@ -56,4 +66,5 @@ exports.login = async function (req, res) {
     return res.status(500).json({ message: "An error occurred during login" });
   }
 };
-    
+
+

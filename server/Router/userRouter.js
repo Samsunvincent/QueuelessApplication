@@ -11,7 +11,6 @@ function setAccessControl(access_types){
 }
 
 router.post('/registerUser',userController.registerUser);
-router.post('/addManager',setAccessControl("1"),userController.addManager)
 
 
 module.exports = router;
