@@ -2,6 +2,9 @@ const bcrypt = require('bcrypt'); // Ensure bcrypt is required
 const User = require('../db/model/userModel');
 const Category = require('../db/model/categoryModel')
 const Product = require('../db/model/productModel');
+const QRCode = require('qrcode');
+const path = require("path");
+const fs = require("fs");
 
 exports.changePassword = async function (req, res) {
     try {
@@ -66,38 +69,70 @@ exports.addCategory = async function (req, res) {
 }
 
 
-const QRCode = require('qrcode');
 
 // Add a new product
 exports.addProduct = async (req, res) => {
-  try {
-    const { name, price, stock, category, description, imageUrl } = req.body;
+    try {
+        const { name, price, stock, category, description, weight } = req.body;
 
-    // Generate a QR code for the product
-    const qrCode = await QRCode.toDataURL({
-        name,
-        price,
-        category
-    });
-    console.log("qrCode",qrCode);
+        // Validate required fields
+        if (!name || !price || !stock || !category || !description || !weight) {
+            return res.status(400).json({ message: "All fields except imageUrl are required" });
+        }
 
-    const categoryDoc = await Category.findOne({name : category})
-   
+        if (isNaN(price) || price <= 0) {
+            return res.status(400).json({ message: "Price must be a valid number greater than zero" });
+        }
 
-    const product = new Product({
-      name,
-      price,
-      stock,
-      category : categoryDoc._id,
-      description,
-      qrCode,
-      imageUrl,
-      createdBy: req.user.id // User creating the product
-    });
+        if (isNaN(stock) || stock < 0) {
+            return res.status(400).json({ message: "Stock must be a valid number (0 or greater)" });
+        }
 
-    await product.save();
-    res.status(201).json({ message: 'Product added successfully', product });
-  } catch (error) {
-    res.status(500).json({ message: 'Error adding product', error: error.message });
-  }
+        if (isNaN(weight) || weight <= 0) {
+            return res.status(400).json({ message: "Weight must be a positive number" });
+        }
+
+        // Find category in the database
+        const categoryDoc = await Category.findOne({ name: category });
+        if (!categoryDoc) {
+            return res.status(400).json({ message: "Invalid category" });
+        }
+
+        const images = (req.files?.["images[]"] || []).map(file => ({
+            url: file.path,
+            alt: req.body.altText || "Product Images",
+        }));
+
+        // Generate a unique filename for the QR Code
+        const qrFileName = `qr_${Date.now()}_${Math.random().toString(36).substr(2, 5)}.png`;
+        const qrFilePath = path.join(__dirname, "../uploads/qrcodes", qrFileName);
+
+        // Ensure directory exists
+        if (!fs.existsSync(path.dirname(qrFilePath))) {
+            fs.mkdirSync(path.dirname(qrFilePath), { recursive: true });
+        }
+
+        // Generate QR code and save as an image file
+        const imageUrl = images.length > 0 ? `http://localhost:5000/${images[0].url}` : "No Image Available";
+
+        await QRCode.toFile(qrFilePath, `${name}, ${price}, ${category}, ${imageUrl}`);
+
+        const product = new Product({
+            name,
+            price,
+            stock,
+            category: categoryDoc._id,
+            description,
+            qrCode: `/uploads/qrcodes/${qrFileName}`, // Save only the file path
+            images,
+            weight,
+            createdBy: req.user.id,
+        });
+
+        await product.save();
+        res.status(201).json({ message: "Product added successfully", product });
+    } catch (error) {
+        res.status(500).json({ message: "Error adding product", error: error.message });
+    }
 };
+

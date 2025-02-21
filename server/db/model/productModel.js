@@ -8,11 +8,12 @@ const productSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
     },
-    description: { type: String }, // Additional product details
-    qrCode: { type: String }, // QR code for queueless payment
-    imageUrl: { type: String }, // Product image URL
-    discount: { type: Number, default: 0 }, // Discount percentage
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User',  }, // Admin/Manager who added it
+    description: { type: String }, 
+    qrCode: { type: String }, 
+    imageUrl: { type: String }, 
+    discount: { type: Number, default: 0 }, 
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User',  },
+    weight: { type: Number, default: 0 , required : true}, 
     createdAt: { type: Date, default: Date.now }
 });
 
