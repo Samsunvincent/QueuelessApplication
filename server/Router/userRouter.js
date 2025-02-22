@@ -11,6 +11,8 @@ function setAccessControl(access_types){
 }
 
 router.post('/registerUser',userController.registerUser);
+router.get('/getProductsByQr/:qrCode', userController.getProductsByQr);
+
 
 
 module.exports = router;

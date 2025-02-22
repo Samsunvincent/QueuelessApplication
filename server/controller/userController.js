@@ -1,5 +1,7 @@
 const User = require('../db/model/userModel');
 const bcrypt = require('bcrypt')
+const Product = require('../db/model/productModel')
+const mongoose = require('mongoose');
 
 // User registration (End User)
 exports.registerUser = async (req, res) => {
@@ -38,5 +40,42 @@ exports.registerUser = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 };
+
+
+exports.getProductsByQr = async (req, res) => {
+    try {
+        // Extract product ID from QR code filename
+        const qrCodePath = req.params.qrCode;
+        console.log("path",qrCodePath);  
+        
+        // Validate the QR code filename format
+        if (!qrCodePath.startsWith("qr_") || !qrCodePath.endsWith(".png")) {
+            return res.status(400).json({ message: "Invalid QR code filename format" });
+        }
+
+        // Extract product ID
+        const productId = qrCodePath.replace("qr_", "").replace(".png", "");
+
+        // Validate product ID (ensure it's a valid MongoDB ObjectId)
+        if (!mongoose.Types.ObjectId.isValid(productId)) {
+            return res.status(400).json({ message: "Invalid product ID" });
+        }
+
+        // Find product by ID and populate the 'category' field
+        const productData = await Product.findById(productId).populate('category');
+
+        // Check if the product exists
+        if (!productData) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        // Return the product data
+        return res.status(200).json({ productData });
+    } catch (error) {
+        console.error("Error retrieving product:", error); // Log the error for debugging
+        res.status(500).json({ message: "Error retrieving product", error: error.message });
+    }
+};
+
 
 

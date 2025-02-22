@@ -75,24 +75,10 @@ exports.addProduct = async (req, res) => {
     try {
         const { name, price, stock, category, description, weight } = req.body;
 
-        // Validate required fields
         if (!name || !price || !stock || !category || !description || !weight) {
-            return res.status(400).json({ message: "All fields except imageUrl are required" });
+            return res.status(400).json({ message: "All fields are required" });
         }
 
-        if (isNaN(price) || price <= 0) {
-            return res.status(400).json({ message: "Price must be a valid number greater than zero" });
-        }
-
-        if (isNaN(stock) || stock < 0) {
-            return res.status(400).json({ message: "Stock must be a valid number (0 or greater)" });
-        }
-
-        if (isNaN(weight) || weight <= 0) {
-            return res.status(400).json({ message: "Weight must be a positive number" });
-        }
-
-        // Find category in the database
         const categoryDoc = await Category.findOne({ name: category });
         if (!categoryDoc) {
             return res.status(400).json({ message: "Invalid category" });
@@ -103,33 +89,43 @@ exports.addProduct = async (req, res) => {
             alt: req.body.altText || "Product Images",
         }));
 
-        // Generate a unique filename for the QR Code
-        const qrFileName = `qr_${Date.now()}_${Math.random().toString(36).substr(2, 5)}.png`;
-        const qrFilePath = path.join(__dirname, "../uploads/qrcodes", qrFileName);
-
-        // Ensure directory exists
-        if (!fs.existsSync(path.dirname(qrFilePath))) {
-            fs.mkdirSync(path.dirname(qrFilePath), { recursive: true });
-        }
-
-        // Generate QR code and save as an image file
-        const imageUrl = images.length > 0 ? `http://localhost:5000/${images[0].url}` : "No Image Available";
-
-        await QRCode.toFile(qrFilePath, `${name}, ${price}, ${category}, ${imageUrl}`);
-
+        // Save product first to get `_id`
         const product = new Product({
             name,
             price,
             stock,
             category: categoryDoc._id,
             description,
-            qrCode: `/uploads/qrcodes/${qrFileName}`, // Save only the file path
             images,
             weight,
             createdBy: req.user.id,
         });
 
         await product.save();
+
+        // Generate a unique filename for the QR Code
+        const qrFileName = `qr_${product._id}.png`;
+        const qrFilePath = path.join(__dirname, "../uploads/qrcodes", qrFileName);
+
+        if (!fs.existsSync(path.dirname(qrFilePath))) {
+            fs.mkdirSync(path.dirname(qrFilePath), { recursive: true });
+        }
+
+        // **✅ Best Approach: Store JSON Data in QR Code**
+        const qrData = JSON.stringify({
+            productId: product._id,
+            name: product.name,
+            price: product.price,
+            category: categoryDoc.name,
+            image: images.length > 0 ? `http://localhost:5000/${images[0].url}` : "No Image Available"
+        });
+
+        await QRCode.toFile(qrFilePath, qrData);
+
+        // Update product with QR Code path
+        product.qrCode = `/uploads/qrcodes/${qrFileName}`;
+        await product.save();
+
         res.status(201).json({ message: "Product added successfully", product });
     } catch (error) {
         res.status(500).json({ message: "Error adding product", error: error.message });
