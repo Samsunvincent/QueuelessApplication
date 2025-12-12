@@ -3,6 +3,8 @@ const router = express.Router();
 const managerController = require('../controller/managerController');
 const accessControl = require('../controller/accessController').accessControl;
 const upload = require('../utils/FileUpload');
+const importUtils = require('../utils/CSVimport/importFile');
+
 
 function setAccessControl(access_types) {
     return (req, res, next) => {
@@ -10,8 +12,9 @@ function setAccessControl(access_types) {
     }
 }
 
-router.post('/changePassword/:id', managerController.changePassword);
+// router.post('/changePassword/:id', managerController.changePassword);
 router.post('/addCategory', setAccessControl('1,3'), managerController.addCategory);
 router.post('/addProduct', setAccessControl('1,3'), upload, managerController.addProduct);
+router.post('/importCSV', setAccessControl('*'), importUtils, managerController.importCSV);
 
 module.exports = router;

@@ -1,0 +1,11 @@
+name,price,stock,category,description,weight,discount,qrCode,imageUrl
+Pepsi,40,100,Drinks,Cold drink 500ml bottle,0.5,0,,
+Biriyani Chicken,120,50,Food,Spicy chicken biriyani,0.75,10,,
+Milk Packet,28,200,Dairy,500ml fresh milk,0.5,0,,
+Apple,180,60,Fruits,Fresh apples 1kg,1.0,5,,
+Soap Bar,35,150,Household,Bathing soap 100g,0.1,0,,
+Tomato Ketchup,90,80,Groceries,Tomato ketchup 500g,0.5,0,,
+Chocolate Bar,50,40,Snacks,Chocolate wafer bar,0.12,0,,
+Rice Bag,1150,20,Groceries,Raw rice 10kg bag,10.0,0,,
+Egg Tray,160,30,Dairy,30 fresh eggs,1.2,0,,
+Mineral Water,20,150,Drinks,1L mineral water bottle,1.0,0,,

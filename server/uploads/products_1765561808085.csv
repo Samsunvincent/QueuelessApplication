@@ -1,0 +1,43 @@
+_id,name,price,stock,category,description,discount,createdBy,weight,createdAt,__v,qrCode,imageUrl,sku
+67ba1c51b87fe4155f5c51d0,Wireless Mouse,25.99,50,6797c988915adf92bf3c2fc8,A high-quality wireless mouse with ergonomic design.,0,6796e8395d2beea99ee811ad,0.2,2025-02-22T18:49:53.350Z,0,/uploads/qrcodes/qr_67ba1c51b87fe4155f5c51d0.png,,
+67ba21561a77ed58c92b57cb,HP Victus,66500,500,6797c988915adf92bf3c2fc8,A high-quality wireless mouse with ergonomic design.,0,6796e8395d2beea99ee811ad,0.2,2025-02-22T19:11:18.309Z,0,/uploads/qrcodes/qr_67ba21561a77ed58c92b57cb.png,,
+693c4eb93e5af3b658fed464,Pepsi,40,100,693c47fc54f98a07433969bf,Cold drink 500ml bottle,0,,0.5,2025-12-12T17:19:53.048Z,0,,,
+693c4eb93e5af3b658fed467,Biriyani Chicken,120,50,693c47da54f98a07433969bb,Spicy chicken biriyani,10,,0.75,2025-12-12T17:19:53.087Z,0,,,
+693c4eb93e5af3b658fed46a,Milk Packet,28,200,693c480454f98a07433969c3,500ml fresh milk,0,,0.5,2025-12-12T17:19:53.102Z,0,,,
+693c4eb93e5af3b658fed46d,Apple,180,60,693c480d54f98a07433969c7,Fresh apples 1kg,5,,1,2025-12-12T17:19:53.109Z,0,,,
+693c4eb93e5af3b658fed470,Soap Bar,35,150,693c481454f98a07433969cb,Bathing soap 100g,0,,0.1,2025-12-12T17:19:53.118Z,0,,,
+693c4eb93e5af3b658fed473,Tomato Ketchup,90,80,6797c988915adf92bf3c2fc8,Tomato ketchup 500g,0,,0.5,2025-12-12T17:19:53.128Z,0,,,
+693c4eb93e5af3b658fed476,Chocolate Bar,50,40,693c482254f98a07433969d1,Chocolate wafer bar,0,,0.12,2025-12-12T17:19:53.134Z,0,,,
+693c4eb93e5af3b658fed479,Rice Bag,1150,20,6797c988915adf92bf3c2fc8,Raw rice 10kg bag,0,,10,2025-12-12T17:19:53.141Z,0,,,
+693c4eb93e5af3b658fed47c,Egg Tray,160,30,693c480454f98a07433969c3,30 fresh eggs,0,,1.2,2025-12-12T17:19:53.149Z,0,,,
+693c4eb93e5af3b658fed47f,Mineral Water,20,150,693c47fc54f98a07433969bf,1L mineral water bottle,0,,1,2025-12-12T17:19:53.157Z,0,,,
+693c521dfdad102089dd34eb,Pepsi,40,100,693c47fc54f98a07433969bf,Cold drink 500ml bottle,0,,0.5,2025-12-12T17:34:21.624Z,0,/uploads/qrcodes/qr_693c521dfdad102089dd34eb.png,,pepsi-a6b6
+693c521dfdad102089dd34ef,Biriyani Chicken,120,50,693c47da54f98a07433969bb,Spicy chicken biriyani,10,,0.75,2025-12-12T17:34:21.767Z,0,/uploads/qrcodes/qr_693c521dfdad102089dd34ef.png,,biriyani-chicken-4df0
+693c521dfdad102089dd34f3,Milk Packet,28,200,693c480454f98a07433969c3,500ml fresh milk,0,,0.5,2025-12-12T17:34:21.829Z,0,/uploads/qrcodes/qr_693c521dfdad102089dd34f3.png,,milk-packet-f1c2
+693c521dfdad102089dd34f7,Apple,180,60,693c480d54f98a07433969c7,Fresh apples 1kg,5,,1,2025-12-12T17:34:21.868Z,0,/uploads/qrcodes/qr_693c521dfdad102089dd34f7.png,,apple-e572
+693c521dfdad102089dd34fb,Soap Bar,35,150,693c481454f98a07433969cb,Bathing soap 100g,0,,0.1,2025-12-12T17:34:21.900Z,0,/uploads/qrcodes/qr_693c521dfdad102089dd34fb.png,,soap-bar-ee4c
+693c521dfdad102089dd34ff,Tomato Ketchup,90,80,6797c988915adf92bf3c2fc8,Tomato ketchup 500g,0,,0.5,2025-12-12T17:34:21.920Z,0,/uploads/qrcodes/qr_693c521dfdad102089dd34ff.png,,tomato-ketchup-7fc7
+693c521dfdad102089dd3503,Chocolate Bar,50,40,693c482254f98a07433969d1,Chocolate wafer bar,0,,0.12,2025-12-12T17:34:21.945Z,0,/uploads/qrcodes/qr_693c521dfdad102089dd3503.png,,chocolate-bar-9e63
+693c521dfdad102089dd3507,Rice Bag,1150,20,6797c988915adf92bf3c2fc8,Raw rice 10kg bag,0,,10,2025-12-12T17:34:21.969Z,0,/uploads/qrcodes/qr_693c521dfdad102089dd3507.png,,rice-bag-17d8
+693c521dfdad102089dd350b,Egg Tray,160,30,693c480454f98a07433969c3,30 fresh eggs,0,,1.2,2025-12-12T17:34:21.990Z,0,/uploads/qrcodes/qr_693c521dfdad102089dd350b.png,,egg-tray-350c
+693c521efdad102089dd350f,Mineral Water,20,150,693c47fc54f98a07433969bf,1L mineral water bottle,0,,1,2025-12-12T17:34:22.012Z,0,/uploads/qrcodes/qr_693c521efdad102089dd350f.png,,mineral-water-e1ce
+693c538bcf336ebd377ddbef,Pepsi,40,100,693c47fc54f98a07433969bf,Cold drink 500ml bottle,0,,0.5,2025-12-12T17:40:27.981Z,0,/uploads/qrcodes/qr_693c538bcf336ebd377ddbef.png,,pepsi-4652
+693c538ccf336ebd377ddbf4,Biriyani Chicken,120,50,693c47da54f98a07433969bb,Spicy chicken biriyani,10,,0.75,2025-12-12T17:40:28.082Z,0,/uploads/qrcodes/qr_693c538ccf336ebd377ddbf4.png,,biriyani-chicken-cb57
+693c538ccf336ebd377ddbf9,Milk Packet,28,200,693c480454f98a07433969c3,500ml fresh milk,0,,0.5,2025-12-12T17:40:28.120Z,0,/uploads/qrcodes/qr_693c538ccf336ebd377ddbf9.png,,milk-packet-2bd0
+693c538ccf336ebd377ddbfe,Apple,180,60,693c480d54f98a07433969c7,Fresh apples 1kg,5,,1,2025-12-12T17:40:28.142Z,0,/uploads/qrcodes/qr_693c538ccf336ebd377ddbfe.png,,apple-559e
+693c538ccf336ebd377ddc03,Soap Bar,35,150,693c481454f98a07433969cb,Bathing soap 100g,0,,0.1,2025-12-12T17:40:28.167Z,0,/uploads/qrcodes/qr_693c538ccf336ebd377ddc03.png,,soap-bar-26d5
+693c538ccf336ebd377ddc08,Tomato Ketchup,90,80,6797c988915adf92bf3c2fc8,Tomato ketchup 500g,0,,0.5,2025-12-12T17:40:28.196Z,0,/uploads/qrcodes/qr_693c538ccf336ebd377ddc08.png,,tomato-ketchup-530e
+693c538ccf336ebd377ddc0d,Chocolate Bar,50,40,693c482254f98a07433969d1,Chocolate wafer bar,0,,0.12,2025-12-12T17:40:28.222Z,0,/uploads/qrcodes/qr_693c538ccf336ebd377ddc0d.png,,chocolate-bar-686c
+693c538ccf336ebd377ddc12,Rice Bag,1150,20,6797c988915adf92bf3c2fc8,Raw rice 10kg bag,0,,10,2025-12-12T17:40:28.247Z,0,/uploads/qrcodes/qr_693c538ccf336ebd377ddc12.png,,rice-bag-af22
+693c538ccf336ebd377ddc17,Egg Tray,160,30,693c480454f98a07433969c3,30 fresh eggs,0,,1.2,2025-12-12T17:40:28.273Z,0,/uploads/qrcodes/qr_693c538ccf336ebd377ddc17.png,,egg-tray-ba86
+693c538ccf336ebd377ddc1c,Mineral Water,20,150,693c47fc54f98a07433969bf,1L mineral water bottle,0,,1,2025-12-12T17:40:28.295Z,0,/uploads/qrcodes/qr_693c538ccf336ebd377ddc1c.png,,mineral-water-f645
+693c543bd1816044300bb736,Pepsi,40,100,693c47fc54f98a07433969bf,Cold drink 500ml bottle,0,,0.5,2025-12-12T17:43:23.486Z,0,/uploads/qrcodes/qr_693c543bd1816044300bb736.png,,pepsi-711d
+693c543bd1816044300bb73b,Biriyani Chicken,120,50,693c47da54f98a07433969bb,Spicy chicken biriyani,10,,0.75,2025-12-12T17:43:23.584Z,0,/uploads/qrcodes/qr_693c543bd1816044300bb73b.png,,biriyani-chicken-366e
+693c543bd1816044300bb740,Milk Packet,28,200,693c480454f98a07433969c3,500ml fresh milk,0,,0.5,2025-12-12T17:43:23.625Z,0,/uploads/qrcodes/qr_693c543bd1816044300bb740.png,,milk-packet-afe5
+693c543bd1816044300bb745,Apple,180,60,693c480d54f98a07433969c7,Fresh apples 1kg,5,,1,2025-12-12T17:43:23.654Z,0,/uploads/qrcodes/qr_693c543bd1816044300bb745.png,,apple-03df
+693c543bd1816044300bb74a,Soap Bar,35,150,693c481454f98a07433969cb,Bathing soap 100g,0,,0.1,2025-12-12T17:43:23.686Z,0,/uploads/qrcodes/qr_693c543bd1816044300bb74a.png,,soap-bar-34dd
+693c543bd1816044300bb74f,Tomato Ketchup,90,80,6797c988915adf92bf3c2fc8,Tomato ketchup 500g,0,,0.5,2025-12-12T17:43:23.726Z,0,/uploads/qrcodes/qr_693c543bd1816044300bb74f.png,,tomato-ketchup-8266
+693c543bd1816044300bb754,Chocolate Bar,50,40,693c482254f98a07433969d1,Chocolate wafer bar,0,,0.12,2025-12-12T17:43:23.757Z,0,/uploads/qrcodes/qr_693c543bd1816044300bb754.png,,chocolate-bar-6ab9
+693c543bd1816044300bb759,Rice Bag,1150,20,6797c988915adf92bf3c2fc8,Raw rice 10kg bag,0,,10,2025-12-12T17:43:23.785Z,0,/uploads/qrcodes/qr_693c543bd1816044300bb759.png,,rice-bag-cfd2
+693c543bd1816044300bb75e,Egg Tray,160,30,693c480454f98a07433969c3,30 fresh eggs,0,,1.2,2025-12-12T17:43:23.808Z,0,/uploads/qrcodes/qr_693c543bd1816044300bb75e.png,,egg-tray-239b
+693c543bd1816044300bb763,Mineral Water,20,150,693c47fc54f98a07433969bf,1L mineral water bottle,0,,1,2025-12-12T17:43:23.832Z,0,/uploads/qrcodes/qr_693c543bd1816044300bb763.png,,mineral-water-1f70

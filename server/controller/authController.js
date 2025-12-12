@@ -1,63 +1,76 @@
-const User = require('../db/model/userModel');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
+const User = require("../db/model/userModel");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
 dotenv.config();
 
+const { sendEmail } = require("./email/sendEmail");
+const { passwordResetEmailTemplate } = require("./email-templates/passwordResetTemplate");
 
 exports.login = async function (req, res) {
   try {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
+      email = email.toLowerCase().trim();
 
-    // Check for missing email
-    if (!email) {
-      return res.status(400).json({ message: "Email is required" });
+    // Required checks
+    if (!email) return res.status(400).json({ message: "Email is required" });
+    if (!password) return res.status(400).json({ message: "Password is required" });
+
+    const check_user = await User.findOne({ email: email });
+    console.log("Checking email:", check_user);
+
+    if (!check_user) {
+      return res.status(404).json({ message: "User not found" });
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({ message: "Invalid email format" });
+    // Compare password
+    const isPasswordMatch = await bcrypt.compare(password, check_user.password);
+    if (!isPasswordMatch) {
+      return res.status(401).json({ message: "Incorrect password" });
     }
 
-    // Check for missing password
-    if (!password) {
-      return res.status(400).json({ message: "Password is required" });
+    // ---------- FIRST LOGIN HANDLING ----------
+    if (check_user.role === "manager" && check_user.isFirstLogin === true) {
+      
+      // Create password reset token
+      const passwordToken = jwt.sign(
+        { user_id: check_user._id },
+        process.env.PRIVATE_KEY,
+        { expiresIn: "15m" }
+      );
+
+      // Save token to DB
+      await User.updateOne(
+        { _id: check_user._id },
+        { $set: { password_token: passwordToken } }
+      );
+
+      // CREATE EMAIL TEMPLATE
+      const emailHtml = passwordResetEmailTemplate(check_user.name,check_user.email,{ role: "manager" },passwordToken);
+
+      // Send Email
+      await sendEmail(check_user.email,"Reset Your Password",emailHtml);
+
+      return res.status(200).json({
+        firstLogin: true,
+        message: "First login — reset password link sent to email.",
+        passwordToken: passwordToken
+      });
     }
 
-    // Find the user in the users collection
-    let check_user = await User.findOne({ email: email });
-    console.log("Checking email in users data:", check_user);
+    // ---------- NORMAL LOGIN ----------
+    const role = check_user.role || "user";
 
-    if (check_user) {
-      // Compare password with the stored hash
-      const isPasswordMatch = await bcrypt.compare(password, check_user.password);
-      if (isPasswordMatch) {
-        // Ensure the role is assigned correctly from the 'role' field in your model
-        const role = check_user.role || 'user';  // Default to 'user' if no role is set
+    const token = jwt.sign(
+      { id: check_user._id, role: role },
+      process.env.PRIVATE_KEY,
+      { expiresIn: role === "admin" ? "1h" : "10d" }
+    );
 
-
-
-        if (check_user.role === "manager" && check_user.isFirstLogin === true) {
-          return res.status(400).json({ message: "Please change your password before logging in" });
-        }
-
-
-        // Generate JWT token with user ID and role
-        const token = jwt.sign({ id: check_user._id, role: role }, process.env.PRIVATE_KEY, { expiresIn: role === 'admin' ? '1h' : '10d' });
-        console.log('token : ', token);
-
-        return res.status(200).json({
-          message: "Login successful",
-          data: { user: check_user, token }
-        });
-      } else {
-        return res.status(401).json({ message: "Incorrect password" });
-      }
-    }
-
-    // If no user found
-    return res.status(404).json({ message: "User not found" });
+    return res.status(200).json({
+      message: "Login successful",
+      data: { user: check_user, token },
+    });
 
   } catch (error) {
     console.error("Error during login:", error);
@@ -66,3 +79,48 @@ exports.login = async function (req, res) {
 };
 
 
+exports.passwordResetController = async function (req, res) {
+  try {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader.split(" ")[1];
+
+    let newPassword = req.body.newPassword;
+    let confirmPassword = req.body.confirmPassword;
+
+    if (newPassword !== confirmPassword) {
+      return res.status(400).send({ message: "Passwords do not match" });
+    }
+
+    let decoded = jwt.decode(token);
+
+    let userData = await User.findOne({
+      _id: decoded.user_id,
+      password_token: token,
+    });
+
+    if (userData) {
+      let salt = bcrypt.genSaltSync(10);
+      let hashed_password = bcrypt.hashSync(newPassword, salt);
+
+      let data = await User.updateOne(
+        { _id: decoded.user_id },
+        {
+          $set: {
+            password: hashed_password,
+            password_token: null,
+            firstLogin: false,
+          },
+        }
+      );
+
+      if (data.modifiedCount == 1) {
+        res.status(200).send({ message: "Password changed successfully" });
+        return;
+      }
+    }
+
+    res.status(400).send({ message: "Invalid token" });
+  } catch (error) {
+    res.status(400).send({ message: "Forbidden" });
+  }
+};

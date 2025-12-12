@@ -1,0 +1,20 @@
+Updated the authcontroller 
+when the manager created the email will send 
+when the manager first login the email will send 
+when the admin creates a manager the password will autogenerate and the email will be lower case
+
+
+todo
+sku :  auto generated
+update the product 
+qr code generation for the product that saving using csv import
+validation of the import csv with proper test cases
+    1. what if there is other values other than in the model
+I need to add more than one file at once
+Update product
+    1 . Normal one by one update of the product 
+    2 . MassUpdate for a list of items based on the selection (same value update)
+    3 . Normal one by one delete of the items and a list of items deletion 
+    4 . 
+
+

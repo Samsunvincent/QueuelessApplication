@@ -14,7 +14,8 @@ const productSchema = new mongoose.Schema({
     discount: { type: Number, default: 0 }, 
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User',  },
     weight: { type: Number, default: 0 , required : true}, 
-    createdAt: { type: Date, default: Date.now }
+    createdAt: { type: Date, default: Date.now },
+    sku : { type: String, unique: true  },
 });
 
 module.exports = mongoose.model('Product', productSchema);
